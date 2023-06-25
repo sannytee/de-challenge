@@ -257,11 +257,16 @@ volumes:
   - name: dags-folder
     hostPath:
       path: /usr/local/de-challenge/airflow/dags
+  - name: data-folder
+    hostPath:
+      path: /usr/local/de-challenge/airflow/data
 
 # VolumeMounts for all airflow containers
 volumeMounts:
   - name: dags-folder
     mountPath: /opt/airflow/dags
+  - name: data-folder
+    mountPath: /opt/airflow/data
 
 
 # Secrets for all airflow containers
@@ -328,7 +333,12 @@ extraConfigMaps: {}
 # Extra env 'items' that will be added to the definition of airflow containers
 # a string is expected (can be templated).
 # TODO: difference from `env`? This is a templated string. Probably should template `env` and remove this.
-extraEnv: ~
+extraEnv: |
+  - name: POSTGRES_CONN
+    valueFrom:
+      secretKeyRef:
+        name: airflow-conns
+        key: postgres_conn
 # eg:
 # extraEnv: |
 #   - name: AIRFLOW__CORE__LOAD_EXAMPLES
