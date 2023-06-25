@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "de-challenge"
+version = "0.1.0"
+description = ""
+authors = ["sannytee <tywosanni@gmail.com>"]
+readme = "README.md"
+packages = [{include = "de_challenge"}]
+
+[tool.poetry.dependencies]
+python = "^3.7.2"
+pylint = "^2.17.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
