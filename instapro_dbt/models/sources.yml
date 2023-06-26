@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: events_logs
+    database: pfquzink
+    schema: public
+    tables:
+      - name: events
+        description: "logs of professional events that happened in the system"
+        columns:
+          - name: event_id
+            description: "The primary key for this table"
+            tests:
+              - unique
+              - not_null

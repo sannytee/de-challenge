@@ -9,6 +9,7 @@ packages = [{include = "de_challenge"}]
 [tool.poetry.dependencies]
 python = "^3.7.2"
 pylint = "^2.17.4"
+dbt-postgres = "^1.5.2"
 
 
 [build-system]

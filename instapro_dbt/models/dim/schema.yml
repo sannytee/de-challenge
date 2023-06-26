@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: dim_professionals
+    description: "dimension table for professionals"
+    columns:
+      - name: professional_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_services
+    description: "dimension table for services"
+    columns:
+      - name: service_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: service_name_nl
+        description: "The name of the service in Dutch"
+        tests:
+          - not_null
+      - name: service_name_en
+        description: "The name of the service in English"
+        tests:
+          - not_null
+
+
