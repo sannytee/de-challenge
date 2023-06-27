@@ -4,3 +4,5 @@ dbt_packages/
 logs/
 profiles.yml
 .user.yml
+secrets.yaml
+secrets.yaml.bak
