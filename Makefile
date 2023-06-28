@@ -29,7 +29,7 @@ start-minikube:
 
 
 setup-airflow: start-minikube
-	kubectl create namespace airflow
+	kubectl apply -f manifests/namespace.yaml
 	kubectl apply -f manifests/logs-pvc.yaml -n airflow
 	@echo "creating secrets"
 	@cp "$(DIRECTORY)"/manifests/secrets.templates.yaml "$(DIRECTORY)"/manifests/secrets.yaml
