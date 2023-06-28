@@ -1,0 +1,13 @@
+instapro_dbt:
+  outputs:
+    test:
+      type: postgres
+      threads: 2
+      host: "{{ env_var('POSTGRES_HOST') }}"
+      port: 5432
+      user: "{{ env_var('POSTGRES_USERNAME') }}"
+      pass: "{{ env_var('POSTGRES_PASS') }}"
+      dbname: "{{ env_var('POSTGRES_DBNAME') }}"
+      schema: test
+
+  target: test

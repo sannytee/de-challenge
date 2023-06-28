@@ -1,0 +1,47 @@
+name: Airflow workflow
+on:
+  push:
+    branches:
+      - staging
+env:
+  DBT_PROFILES_DIR: ${{ github.workspace }}/.dbt
+  DBT_PROJECT_DIR: ${{github.workspace }}/instapro_dbt
+  POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+  POSTGRES_PASS: ${{ secrets.POSTGRES_PASS }}
+  POSTGRES_DBNAME: ${{ secrets.POSTGRES_DBNAME }}
+  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+          poetry --version
+
+      - name: Install project dependencies
+        run: |
+          poetry update
+
+      - name: Install dbt dependencies
+        run: |
+          poetry run dbt deps
+
+      - name: Copy Credentials
+        run: |
+          mkdir '${{ github.workspace }}/.dbt'
+          cp ${{ github.workspace }}/ci-profiles.yml '${{ github.workspace }}/.dbt/profiles.yml'
+
+      - name: Run dbt full tests
+        run: poetry run dbt build --target test
+
