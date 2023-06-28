@@ -24,7 +24,7 @@ start-minikube:
 	@cp "$(DBT_PROFILE_PATH)" "$(DIRECTORY)/instapro_dbt"
 	@echo "starting minikube...."
 	@minikube config set cpus 4
-	@minikube config set memory 5000
+	@minikube config set memory 3000
 	@minikube start --mount --mount-string "$(DIRECTORY)"/:/usr/local/de-challenge --driver=docker
 
 
