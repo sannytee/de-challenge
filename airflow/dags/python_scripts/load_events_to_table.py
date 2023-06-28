@@ -14,9 +14,10 @@ def load_events_to_table(event_file_path: str, conn_url: str) -> Optional:
     engine = create_engine(f"postgresql://{conn_url}")
 
     df = pd.read_csv(event_file_path, header=0, sep=";")
-    df[["service_id", "service_name_nl", "service_name_en", "service_lead_fee"]] = df["meta_data"].str.split(
-        "_", expand=True
-    )
+    df["meta_data"] = df["meta_data"].fillna("")
+    meta_df = df["meta_data"].str.split("_", expand=True)
+    if len(meta_df.columns) > 1:
+        df[["service_id", "service_name_nl", "service_name_en", "service_lead_fee"]] = meta_df
 
     df = df.drop(columns=["meta_data"])
 

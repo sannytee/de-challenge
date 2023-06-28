@@ -7,7 +7,7 @@
 with events_with_facts as (
     select
         {{
-            dbt_utils.generate_surrogate_key(['event_id', 'professional_id_anonymized', 'service_id'])
+            dbt_utils.generate_surrogate_key(['event_id', 'professional_id_anonymized'])
         }} as event_fact_id,
         event_id as event_id,
         professional_id_anonymized as professional_id,
